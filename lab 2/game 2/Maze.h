@@ -36,7 +36,7 @@ public:
     }
 
     ~Maze() {
-        // Очистка выделенной динамической памяти
+        // Очистка выделенной памяти
         for (auto& row : maze) {
             for (auto& element : row) {
                 delete element;
