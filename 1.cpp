@@ -32,7 +32,7 @@ public:
 };
 
 int main() {
-    // Define the alphabet, transition table, initial state, and final states
+    // алфавит, таблицу переходов, начальное и конечное состояния.
     vector<char> alphabet = {'0', '1'};
     unordered_map<char, unordered_map<char, char>> transitionTable = {
         {'A', {{'0', 'B'}, {'1', 'A'}}},
@@ -42,10 +42,10 @@ int main() {
     char initialState = 'A';
     vector<char> finalStates = {'B'};
 
-    // Create the DFA instance
+    // экземпляр DFA
     DFA<char, char> dfa(alphabet, transitionTable, initialState, finalStates);
 
-    // Test strings against the DFA
+    // Тестовые строки на соответствие DFA
     cout << "Testing strings against the DFA:\n";
     vector<string> testStrings = {"","1", "0", "00", "000", "0000", "00000", "01", "10", "101", "110"};
     for (const string& str : testStrings) {
