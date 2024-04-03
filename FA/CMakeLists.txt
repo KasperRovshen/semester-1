@@ -6,4 +6,4 @@ file(GLOB SOURCES
     h/*.h
     src/*.cpp)
 
-add_executable(FaaT ${SOURCES})
+add_executable(FA ${SOURCES})

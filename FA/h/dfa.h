@@ -1,20 +1,24 @@
 #ifndef DFA_H
 #define DFA_H
 
+#include <iostream>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
+using namespace std;
+
+template<typename State, typename Symbol>
 class DFA {
 private:
-    std::vector<char> alphabet;
-    std::unordered_map<char, std::unordered_map<char, char>> transitionTable;
-    char initialState;
-    std::vector<char> finalStates;
+    vector<Symbol> alphabet;
+    unordered_map<State, unordered_map<Symbol, State>> transitionTable;
+    State initialState;
+    vector<State> finalStates;
 
 public:
-    DFA(std::vector<char> alphabet, std::unordered_map<char, std::unordered_map<char, char>> transitionTable, char initialState, std::vector<char> finalStates);
-    bool isAccepted(std::string input);
+    DFA(vector<Symbol> alphabet, unordered_map<State, unordered_map<Symbol, State>> transitionTable, State initialState, vector<State> finalStates);
+    bool isAccepted(string input);
 };
 
-#endif // DFA_H
+#endif /* DFA_H */

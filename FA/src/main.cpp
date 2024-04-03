@@ -1,60 +1,31 @@
 #include <iostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
+#include <algorithm>
 #include "../h/dfa.h"
 
+using namespace std;
+
 int main() {
-    std::vector<char> alphabet;
-    std::unordered_map<char, std::unordered_map<char, char>> transitionTable;
-    char initialState;
-    std::vector<char> finalStates;
+    // Define the alphabet, transition table, initial state, and final states
+    vector<char> alphabet = {'0', '1'};
+    unordered_map<char, unordered_map<char, char>> transitionTable = {
+        {'A', {{'0', 'B'}, {'1', 'A'}}},
+        {'B', {{'0', 'C'}, {'1', 'B'}}},
+        {'C', {{'0', 'A'}, {'1', 'C'}}}
+    };
+    char initialState = 'A';
+    vector<char> finalStates = {'A'};
 
-    // Accepting user-defined alphabet
-    std::string alphabetStr;
-    std::cout << "Enter the alphabet (without spaces): ";
-    std::cin >> alphabetStr;
-    for (char c : alphabetStr) {
-        alphabet.push_back(c);
-    }
+    // Create the DFA instance
+    DFA<char, char> dfa(alphabet, transitionTable, initialState, finalStates);
 
-    // Accepting transition table
-    std::cout << "Enter the transition table (use 'x' for no transition):\n";
-    for (char state : alphabet) {
-        std::cout << "Transition for state " << state << ":" << std::endl;
-        for (char symbol : alphabet) {
-            std::cout << "  Input " << symbol << ": ";
-            char nextState;
-            std::cin >> nextState;
-            transitionTable[state][symbol] = nextState;
-        }
-    }
-
-    // Accepting initial state
-    std::cout << "Enter the initial state: ";
-    std::cin >> initialState;
-
-    // Accepting final states
-    std::string finalStatesStr;
-    std::cout << "Enter the final states (without spaces): ";
-    std::cin >> finalStatesStr;
-    for (char c : finalStatesStr) {
-        finalStates.push_back(c);
-    }
-
-    // Creating the DFA instance
-    DFA dfa(alphabet, transitionTable, initialState, finalStates);
-
-    // Accepting input strings and checking if they are accepted by the DFA
-    while (true) {
-        std::string input;
-        std::cout << "Enter a string over the alphabet " << alphabetStr << " (enter 'q' to quit): ";
-        std::cin >> input;
-        if (input == "q") {
-            break;
-        }
-        if (dfa.isAccepted(input)) {
-            std::cout << "Accepted" << std::endl;
-        } else {
-            std::cout << "Rejected" << std::endl;
-        }
+    // Test strings against the DFA
+    cout << "Testing strings against the DFA:\n";
+    vector<string> testStrings = {"", "0", "00", "000", "0000", "00000", "01", "10", "101", "110"};
+    for (const string& str : testStrings) {
+        cout << "String: " << str << ", Accepted: " << (dfa.isAccepted(str) ? "Yes" : "No") << endl;
     }
 
     return 0;
