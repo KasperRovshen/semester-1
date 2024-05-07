@@ -1,3 +1,5 @@
+проверено - E
+
 #include <iostream>
 #include <fstream>
 #include <vector>
